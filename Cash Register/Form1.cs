@@ -284,7 +284,7 @@ namespace Cash_Register
             //Resizes form to default size
             this.Size = new Size(188, 432);
 
-            //Resets screen to default text
+            //Resets screen to default text 
             inputBurgers.Text = "0";
             inputFries.Text = "0";
             inputDrinks.Text = "0";
