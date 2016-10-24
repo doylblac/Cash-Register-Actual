@@ -268,11 +268,11 @@ namespace Cash_Register
                     e.Graphics.DrawString("Bob's Burger Banaza Inc.", drawFont, drawBrush, 160, x1);
                     e.Graphics.DrawString("Order Number 1059", drawFont, drawBrush, 160, x2);
                     e.Graphics.DrawString(thisDay.ToString("D"), drawFont, drawBrush, 160, x3);
-                    e.Graphics.DrawString("Hamburger's X " + burgerAmount + "@", drawFont, drawBrush, 160, x4);
+                    e.Graphics.DrawString("Hamburger's X " + burgerAmount + "@ ", drawFont, drawBrush, 160, x4);
                     e.Graphics.DrawString(burgerCost.ToString("C"), drawFont, drawBrush, 275, x4);
-                    e.Graphics.DrawString("Fries X " + friesAmount + "@", drawFont, drawBrush, 160, x5);
+                    e.Graphics.DrawString("Fries X " + friesAmount + "@ ", drawFont, drawBrush, 160, x5);
                     e.Graphics.DrawString(friesCost.ToString("C"), drawFont, drawBrush, 275, x5);
-                    e.Graphics.DrawString("Drinks X " + drinksAmount + "@", drawFont, drawBrush, 160, x6);
+                    e.Graphics.DrawString("Drinks X " + drinksAmount + "@ ", drawFont, drawBrush, 160, x6);
                     e.Graphics.DrawString(drinkCost.ToString("C"), drawFont, drawBrush, 275, x6);
                     e.Graphics.DrawString("Subtotal ", drawFont, drawBrush, 160, x7);
                     e.Graphics.DrawString(subtotal.ToString("C"), drawFont, drawBrush, 275, x7);
