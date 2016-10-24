@@ -22,7 +22,7 @@ namespace Cash_Register
         const double TAXRATE = 0.13;//Creates constant for rate of tax
         int burgerAmount;//Creates a variable for number of burgers bought 
         int friesAmount;//Creates a variable for number of fries bought
-        int drinkAmount;//Creates a variable for number of drinks bought
+        int drinksAmount;//Creates a variable for number of drinks bought
         double tendered;//Creates a double for amount paid by customer
         double change;//Creates a variable for change returned to customer
         double tax;//Creates a variable for the cost of the tax
@@ -30,7 +30,7 @@ namespace Cash_Register
         double total;//Creates a variable for the total cost
         double burgerCost;//Creates a variale for the cost of just the burgers
         double friesCost;//Creates a variable for the cost of just the fries
-        double drinkCost;//Creates a variable for the cost of just the drinks
+        double drinkCost;//Creates a variable for the cost of just the drinks  
         bool printRec = false;//Creates a boolean variable for the paint event
 
         public Form1()
@@ -45,20 +45,44 @@ namespace Cash_Register
             Font drawFont = new Font("Arial", 8, FontStyle.Bold);//Allows for strings to be drawen
             SoundPlayer cashRegister = new SoundPlayer(Properties.Resources.Cash_Register_201159);//Creates Sound player
 
-            //Makes variables equal the text boxes
-            friesAmount = Convert.ToInt32(inputFries.Text);
-            drinkAmount = Convert.ToInt32(inputDrinks.Text);
-            burgerAmount = Convert.ToInt32(inputBurgers.Text);
-
             try
             {
+                //Makes variables equal the text boxes
+                friesAmount = Convert.ToInt32(inputFries.Text);
+                drinksAmount = Convert.ToInt32(inputDrinks.Text);
+                burgerAmount = Convert.ToInt32(inputBurgers.Text);
+
                 //Calculates the subtotal, tax and total
-                subtotal = burgerAmount * BURGER + friesAmount * FRIES + drinkAmount * DRINK;
+                subtotal = burgerAmount * BURGER + friesAmount * FRIES + drinksAmount * DRINK;
                 tax = subtotal * TAXRATE;
                 total = subtotal + tax;
 
+                if (burgerAmount > 999)//Caps the amount that you can order
+                {
+                    subtotalOutput.Text = "Please use realistic numbers.";
+                    taxOutput.Text = "";
+                    totalOutput.Text = "";
+                    changeOutput.Text = "";
+                    formGraphics.Clear(Color.Black);
+                }
+                else if (friesAmount > 999)//Caps the amount that you can order
+                {
+                    subtotalOutput.Text = "Please use realistic numbers.";
+                    taxOutput.Text = "";
+                    totalOutput.Text = "";
+                    changeOutput.Text = "";
+                    formGraphics.Clear(Color.Black);
+                }
+                else if (drinksAmount > 999)//Caps the amount that you can order
+                {
+                    subtotalOutput.Text = "Please use realistic numbers.";
+                    taxOutput.Text = "";
+                    totalOutput.Text = "";
+                    changeOutput.Text = "";
+                    formGraphics.Clear(Color.Black);
+                }
                 //Makes it impossible to enter negative values
-                if (burgerAmount < 0)
+                else if (burgerAmount < 0)
                 {
                     subtotalOutput.Text = "Please use positive numbers.";
                     taxOutput.Text = "";
@@ -66,8 +90,7 @@ namespace Cash_Register
                     changeOutput.Text = "";
                     formGraphics.Clear(Color.Black);
                 }
-
-                else if (drinkAmount < 0)
+                else if (drinksAmount < 0)
                 {
                     subtotalOutput.Text = "Please use positive numbers.";
                     taxOutput.Text = "";
@@ -75,7 +98,6 @@ namespace Cash_Register
                     changeOutput.Text = "";
                     formGraphics.Clear(Color.Black);
                 }
-
                 else if (friesAmount < 0)
                 {
                     subtotalOutput.Text = "Please use positive numbers.";
@@ -129,7 +151,7 @@ namespace Cash_Register
                     Refresh();
                     Thread.Sleep(1200);
 
-                    formGraphics.FillRectangle(whiteBrush, 10, 220, 150, 10);//Draws a white reactangle
+                    formGraphics.FillRectangle(whiteBrush, 10, 220, 140, 10);//Draws a white reactangle
                 }
             }
             catch//Prevents the user from inputing decimals and letters
@@ -224,7 +246,7 @@ namespace Cash_Register
             if (printRec)//Calls printRec when it is true
             {
                 SolidBrush whiteBrush = new SolidBrush(Color.White);//Creates Brush
-                Font drawFont = new Font("Arial", 8, FontStyle.Bold);//Creates string function
+                Font drawFont = new Font("Consolas", 8, FontStyle.Bold);//Creates string function
                 SolidBrush drawBrush = new SolidBrush(Color.Black);//Creates Brush
                 SoundPlayer Receipt = new SoundPlayer(Properties.Resources._345056__azumarill__epson_receipt_printer3);//Creates Soundplayer
 
@@ -233,27 +255,36 @@ namespace Cash_Register
                 //Performs calculations for cost of individual components
                 burgerCost = burgerAmount * BURGER;
                 friesCost = friesAmount * FRIES;
-                drinkCost = drinkAmount * DRINK;
+                drinkCost = drinksAmount * DRINK;
 
                 Receipt.Play();//Plays Sound
-                for (int x = 0; x < 18; x++)
+
+                for (int x = 0; x < 18; x++)//Animates the text scrolling up the screen
                 {
-                    e.Graphics.FillRectangle(whiteBrush, 10, 220, 150, 10);//Redraws the rectangle between tendered and total
-                    e.Graphics.FillRectangle(whiteBrush, 190, 10, 160, 325);//Draws a rectangle
+                    e.Graphics.FillRectangle(whiteBrush, 10, 220, 140, 10);//Redraws the rectangle between tendered and total
+                    e.Graphics.FillRectangle(whiteBrush, 160, 10, 180, 325);//Draws a rectangle
 
                     //Draws the information for the receipt
-                    e.Graphics.DrawString("Bob's Burger Banaza Inc.", drawFont, drawBrush, 190, x1);
-                    e.Graphics.DrawString("Order Number 1059", drawFont, drawBrush, 190, x2);
-                    e.Graphics.DrawString(thisDay.ToString("D"), drawFont, drawBrush, 190, x3);
-                    e.Graphics.DrawString("Hamburger's X" + burgerAmount + " @ " + burgerCost.ToString("C"), drawFont, drawBrush, 190, x4);
-                    e.Graphics.DrawString("Fries X" + friesAmount + "              @ " + friesCost.ToString("C"), drawFont, drawBrush, 190, x5);
-                    e.Graphics.DrawString("Drinks X" + drinkAmount + "            @ " + drinkCost.ToString("C"), drawFont, drawBrush, 190, x6);
-                    e.Graphics.DrawString("Subtotal " + subtotal.ToString("C"), drawFont, drawBrush, 190, x7);
-                    e.Graphics.DrawString("Tax " + tax.ToString("C"), drawFont, drawBrush, 190, x8);
-                    e.Graphics.DrawString("Total " + total.ToString("C"), drawFont, drawBrush, 190, x9);
-                    e.Graphics.DrawString("Tendered " + tendered.ToString("C"), drawFont, drawBrush, 190, x10);
-                    e.Graphics.DrawString("Change " + change.ToString("C"), drawFont, drawBrush, 190, x11);
-                    e.Graphics.DrawString("Have a great day!!", drawFont, drawBrush, 190, x12);
+                    e.Graphics.DrawString("Bob's Burger Banaza Inc.", drawFont, drawBrush, 160, x1);
+                    e.Graphics.DrawString("Order Number 1059", drawFont, drawBrush, 160, x2);
+                    e.Graphics.DrawString(thisDay.ToString("D"), drawFont, drawBrush, 160, x3);
+                    e.Graphics.DrawString("Hamburger's X " + burgerAmount + "@", drawFont, drawBrush, 160, x4);
+                    e.Graphics.DrawString(burgerCost.ToString("C"), drawFont, drawBrush, 275, x4);
+                    e.Graphics.DrawString("Fries X " + friesAmount + "@", drawFont, drawBrush, 160, x5);
+                    e.Graphics.DrawString(friesCost.ToString("C"), drawFont, drawBrush, 275, x5);
+                    e.Graphics.DrawString("Drinks X " + drinksAmount + "@", drawFont, drawBrush, 160, x6);
+                    e.Graphics.DrawString(drinkCost.ToString("C"), drawFont, drawBrush, 275, x6);
+                    e.Graphics.DrawString("Subtotal ", drawFont, drawBrush, 160, x7);
+                    e.Graphics.DrawString(subtotal.ToString("C"), drawFont, drawBrush, 275, x7);
+                    e.Graphics.DrawString("Tax", drawFont, drawBrush, 160, x8);
+                    e.Graphics.DrawString(tax.ToString("C"), drawFont, drawBrush, 275, x8);
+                    e.Graphics.DrawString("Total", drawFont, drawBrush, 160, x9);
+                    e.Graphics.DrawString(total.ToString("C"), drawFont, drawBrush, 275, x9);
+                    e.Graphics.DrawString("Tendered", drawFont, drawBrush, 160, x10);
+                    e.Graphics.DrawString(tendered.ToString("C"), drawFont, drawBrush, 275, x10);
+                    e.Graphics.DrawString("Change", drawFont, drawBrush, 160, x11);
+                    e.Graphics.DrawString(change.ToString("C"), drawFont, drawBrush, 275, x11);
+                    e.Graphics.DrawString("Have a great day!!", drawFont, drawBrush, 160, x12);
 
                     //Subtracts 20 from each variable
                     x1 -= 20;
@@ -284,7 +315,7 @@ namespace Cash_Register
             //Resizes form to default size
             this.Size = new Size(188, 432);
 
-            //Resets screen to default text 
+            //Resets screen to default text
             inputBurgers.Text = "0";
             inputFries.Text = "0";
             inputDrinks.Text = "0";
@@ -298,7 +329,7 @@ namespace Cash_Register
             //Resets all variable to 0
             burgerAmount = 0;
             friesAmount = 0;
-            drinkAmount = 0;
+            drinksAmount = 0;
             tendered = 0;
             change = 0;
             tax = 0;

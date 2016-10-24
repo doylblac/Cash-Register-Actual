@@ -77,7 +77,7 @@
             // 
             this.inputBurgers.Location = new System.Drawing.Point(113, 16);
             this.inputBurgers.Name = "inputBurgers";
-            this.inputBurgers.Size = new System.Drawing.Size(48, 20);
+            this.inputBurgers.Size = new System.Drawing.Size(33, 20);
             this.inputBurgers.TabIndex = 2;
             this.inputBurgers.Text = "0";
             // 
@@ -95,7 +95,7 @@
             // 
             this.inputFries.Location = new System.Drawing.Point(113, 43);
             this.inputFries.Name = "inputFries";
-            this.inputFries.Size = new System.Drawing.Size(48, 20);
+            this.inputFries.Size = new System.Drawing.Size(33, 20);
             this.inputFries.TabIndex = 4;
             this.inputFries.Text = "0";
             // 
@@ -103,7 +103,7 @@
             // 
             this.inputDrinks.Location = new System.Drawing.Point(113, 70);
             this.inputDrinks.Name = "inputDrinks";
-            this.inputDrinks.Size = new System.Drawing.Size(48, 20);
+            this.inputDrinks.Size = new System.Drawing.Size(33, 20);
             this.inputDrinks.TabIndex = 5;
             this.inputDrinks.Text = "0";
             // 
@@ -219,7 +219,7 @@
             // 
             this.changeInput.Location = new System.Drawing.Point(94, 248);
             this.changeInput.Name = "changeInput";
-            this.changeInput.Size = new System.Drawing.Size(64, 20);
+            this.changeInput.Size = new System.Drawing.Size(52, 20);
             this.changeInput.TabIndex = 19;
             this.changeInput.Text = "0";
             // 
@@ -248,7 +248,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(172, 393);
+            this.ClientSize = new System.Drawing.Size(160, 393);
             this.Controls.Add(this.newOrderButton);
             this.Controls.Add(this.changeInput);
             this.Controls.Add(this.changeOutput);
