@@ -32,6 +32,7 @@ namespace Cash_Register
         double friesCost;//Creates a variable for the cost of just the fries
         double drinkCost;//Creates a variable for the cost of just the drinks  
         bool printRec = false;//Creates a boolean variable for the paint event
+        int count = 0;//Creates a variable and makes it equal 0
 
         public Form1()
         {
@@ -57,7 +58,16 @@ namespace Cash_Register
                 tax = subtotal * TAXRATE;
                 total = subtotal + tax;
 
-                if (burgerAmount > 999)//Caps the amount that you can order
+                if (count != 0)//Makes it impossible to not press new order button
+                {
+                    subtotalOutput.Text = "Please press new order button";
+                    taxOutput.Text = "";
+                    totalOutput.Text = "";
+                    changeOutput.Text = "";
+                    whiteBrush.Color = Color.Black;
+                    formGraphics.FillRectangle(whiteBrush, 10, 220, 140, 10);
+                }
+                else if (burgerAmount > 999)//Caps the amount that you can order
                 {
                     subtotalOutput.Text = "Please use realistic numbers.";
                     taxOutput.Text = "";
@@ -166,6 +176,8 @@ namespace Cash_Register
 
         private void changeButton_Click(object sender, EventArgs e)
         {
+            SolidBrush blackBrush = new SolidBrush(Color.Black);//Creates a white brush
+            Graphics formGraphics = this.CreateGraphics();//Allows for graphics to be created
             SoundPlayer purchase = new SoundPlayer(Properties.Resources._209578__zott820__cash_register_purchase);//Creates Sound player
 
             try
@@ -173,8 +185,16 @@ namespace Cash_Register
                 //Lets tendered be changed by the user
                 tendered = Convert.ToDouble(changeInput.Text);
 
+                if (count != 0)//Makes it impossible to not press new order button
+                {
+                    subtotalOutput.Text = "Please press new order button";
+                    taxOutput.Text = "";
+                    totalOutput.Text = "";
+                    changeOutput.Text = "";
+                    formGraphics.FillRectangle(blackBrush, 10, 220, 140, 10);
+                }
                 //Prevents the user from paying less than the total
-                if (tendered <= total)
+               else if (tendered <= total)
                 {
                     changeOutput.Text = "Tendered must exceed the total.";
                 }
@@ -200,8 +220,17 @@ namespace Cash_Register
         private void receiptButton_Click(object sender, EventArgs e)
         {
             Graphics formGraphics = this.CreateGraphics();//Allows for graphics to be created
+            SolidBrush blackBrush = new SolidBrush(Color.Black);//Creates a white brush
 
-            if (tendered < total)
+            if (count != 0)//Makes it impossible to not press new order button
+            {
+                subtotalOutput.Text = "Please press new order button";
+                taxOutput.Text = "";
+                totalOutput.Text = "";
+                changeOutput.Text = "";
+                formGraphics.FillRectangle(blackBrush, 10, 220, 140, 10);
+            }
+            else  if (tendered < total)
             {
                 changeOutput.Text = "Tendered must exceed the total.";
 
@@ -221,6 +250,8 @@ namespace Cash_Register
 
                     Thread.Sleep(50);
                 }
+                count++;//Adds one to count variable
+
                 printRec = true;//Makes printRec true to allow paint event to happen
 
                 Refresh();//Calls the paint event
@@ -338,6 +369,7 @@ namespace Cash_Register
             burgerCost = 0;
             friesCost = 0;
             drinkCost = 0;
+            count = 0;
         }
     }
 }
